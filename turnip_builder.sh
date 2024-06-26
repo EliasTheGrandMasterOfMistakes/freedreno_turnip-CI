@@ -8,7 +8,7 @@ workdir="$(pwd)/turnip_workdir"
 magiskdir="$workdir/turnip_module"
 ndkver="android-ndk-r26c"
 sdkver="31"
-mesasrc="https://codeload.github.com/EliasTheGrandMasterOfMistakes/platform_external_mesa3d/zip/refs/heads/turnip-build"
+mesasrc="https://codeload.github.com/EliasTheGrandMasterOfMistakes/platform_external_mesa3d/zip/refs/heads/turnip-build-perfetto"
 clear
 
 # there are 4 functions here, simply comment to disable.
@@ -86,7 +86,7 @@ endian = 'little'
 EOF
 
 	echo "Generating build files ..." $'\n'
-	meson build-android-aarch64 --cross-file "$workdir"/mesa-main/android-aarch64 -Dbuildtype=debug -Dplatforms=android -Dplatform-sdk-version=$sdkver -Dandroid-stub=true -Dperfetto=true -Dgallium-drivers=freedreno -Dvulkan-drivers=freedreno -Dvulkan-beta=true -Dfreedreno-kmds=kgsl -Db_lto=true | tee "$workdir"/meson_log
+	meson build-android-aarch64 --cross-file "$workdir"/mesa-main/android-aarch64 -Dbuildtype=debug -Dplatforms=android -Dplatform-sdk-version=$sdkver -Dandroid-stub=true -Dperfetto=true -Dgallium-drivers= -Dvulkan-drivers=freedreno -Dvulkan-beta=true -Dfreedreno-kmds=kgsl -Db_lto=true | tee "$workdir"/meson_log
 
 	echo "Compiling build files ..." $'\n'
 	ninja -C build-android-aarch64 | tee "$workdir"/ninja_log
