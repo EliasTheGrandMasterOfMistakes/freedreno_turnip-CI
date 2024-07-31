@@ -8,7 +8,7 @@ workdir="$(pwd)/turnip_workdir"
 magiskdir="$workdir/turnip_module"
 ndkver="android-ndk-r27-beta2"
 sdkver="31"
-mesasrc="https://codeload.github.com/EliasTheGrandMasterOfMistakes/platform_external_mesa3d/zip/refs/heads/turnip-build-merge"
+mesasrc="https://codeload.github.com/EliasTheGrandMasterOfMistakes/platform_external_mesa3d/zip/refs/heads/turnip-build-new-1"
 clear
 
 # there are 4 functions here, simply comment to disable.
@@ -59,7 +59,7 @@ prepare_workdir(){
 	###
 	echo "Exracting mesa source to a folder ..." $'\n'
 	unzip mesa-main.zip &> /dev/null
- 	mv platform_external_mesa3d-turnip-build-merge mesa-main
+ 	mv platform_external_mesa3d-turnip-build-new-1 mesa-main
 	cd mesa-main
 }
 
@@ -86,7 +86,7 @@ endian = 'little'
 EOF
 
 	echo "Generating build files ..." $'\n'
-	meson build-android-aarch64 --cross-file "$workdir"/mesa-main/android-aarch64 -Dbuildtype=release -Dplatforms=android -Dgallium-drivers= -Dplatform-sdk-version=$sdkver -Dandroid-stub=true -Dshader-cache-max-size=5G -Dvulkan-beta=true -Dvulkan-drivers=freedreno -Dfreedreno-kmds=kgsl -Db_lto=false | tee "$workdir"/meson_log
+	meson build-android-aarch64 --cross-file "$workdir"/mesa-main/android-aarch64 -Dbuildtype=release -Dandroid-strict=false Dplatforms=android -Dgallium-drivers= -Dplatform-sdk-version=$sdkver -Dandroid-stub=true -Dshader-cache-max-size=5G -Dvulkan-beta=true -Dvulkan-drivers=freedreno -Dfreedreno-kmds=kgsl -Db_lto=false | tee "$workdir"/meson_log
 
 	echo "Compiling build files ..." $'\n'
 	ninja -C build-android-aarch64 | tee "$workdir"/ninja_log
